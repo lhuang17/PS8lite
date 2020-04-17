@@ -194,6 +194,8 @@ Fit one Random Forest model `model_rf` using any approach you want.
 
 ## Fitting a `randomForest` via `caret`
 
+### Setup cross-validation
+
 The "tuning" parameter we're going to "optimize" over is the number of randomly chosen variables we use at each split in our CART trees: `mtry`. We're going to search over values 33 through 36 (the maximum number of predictor variables we have access to). 
 
 ```{r}
@@ -205,7 +207,7 @@ mtry <- 33:36
 tunegrid <- expand.grid(.mtry = mtry)
 ```
 
-## Perform cross-validation
+### Perform cross-validation
 
 Note that this code chunk takes a few minutes to run. So we set this code chucks `cache = TRUE` to save the result when knitting the .Rmd file, so that future knits don't re-run this code block to save time. 
 

@@ -458,6 +458,8 @@ test &lt;-<span class="st"> </span>test <span class="op">%&gt;%</span><span clas
 <p>Fit one Random Forest model <code>model_rf</code> using any approach you want.</p>
 <div id="fitting-a-randomforest-via-caret" class="section level2">
 <h2><span class="header-section-number">2.1</span> Fitting a <code>randomForest</code> via <code>caret</code></h2>
+<div id="setup-cross-validation" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> Setup cross-validation</h3>
 <p>The “tuning” parameter we’re going to “optimize” over is the number of randomly chosen variables we use at each split in our CART trees: <code>mtry</code>. We’re going to search over values 33 through 36 (the maximum number of predictor variables we have access to).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Define cross-validation settings: 10-fold CV</span>
 fit_control &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method =</span> <span class="st">&quot;cv&quot;</span>, <span class="dt">number =</span> <span class="dv">10</span>)
@@ -466,8 +468,8 @@ fit_control &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<
 mtry &lt;-<span class="st"> </span><span class="dv">33</span><span class="op">:</span><span class="dv">36</span>
 tunegrid &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">.mtry =</span> mtry)</code></pre></div>
 </div>
-<div id="perform-cross-validation" class="section level2">
-<h2><span class="header-section-number">2.2</span> Perform cross-validation</h2>
+<div id="perform-cross-validation" class="section level3">
+<h3><span class="header-section-number">2.1.2</span> Perform cross-validation</h3>
 <p>Note that this code chunk takes a few minutes to run. So we set this code chucks <code>cache = TRUE</code> to save the result when knitting the .Rmd file, so that future knits don’t re-run this code block to save time.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_rf_caret &lt;-<span class="st"> </span>caret<span class="op">::</span><span class="kw">train</span>(
   <span class="co"># Model formula</span>
@@ -506,6 +508,7 @@ tunegrid &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span
 ## The final value used for the model was mtry = 34.</code></pre>
 <p>We see that using <code>mtry = 34</code> yielded the lowest estimate of <code>RMSE</code> model error on new independent test data. This is the optimal value.</p>
 <hr />
+</div>
 </div>
 </div>
 <div id="make-predictions-and-submit-to-kaggle" class="section level1">
