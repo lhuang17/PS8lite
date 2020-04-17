@@ -30,7 +30,6 @@ library(tidyverse)
 library(janitor)
 library(skimr)
 library(randomForest)
-library(caret)
 
 # Set seed value of random number generator here:
 set.seed(76)
@@ -200,7 +199,7 @@ The "tuning" parameter we're going to "optimize" over is the number of randomly 
 
 ```{r}
 # Define cross-validation settings: 10-fold CV
-fit_control <- trainControl(method = "cv", number = 10)
+fit_control <- caret::trainControl(method = "cv", number = 10)
 
 # Setup search grid of "tuning" parameters
 mtry <- 33:36
