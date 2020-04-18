@@ -471,7 +471,7 @@ tunegrid &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span
 <div id="perform-cross-validation" class="section level3">
 <h3><span class="header-section-number">2.1.2</span> Perform cross-validation</h3>
 <p>Note that this code chunk takes a few minutes to run. So we set this code chucks <code>cache = TRUE</code> to save the result when knitting the .Rmd file, so that future knits don’t re-run this code block to save time.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_rf_caret &lt;-<span class="st"> </span>caret<span class="op">::</span><span class="kw">train</span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_rf &lt;-<span class="st"> </span>caret<span class="op">::</span><span class="kw">train</span>(
   <span class="co"># Model formula</span>
   <span class="dt">form =</span> model_formula,
   <span class="co"># Training data</span>
@@ -487,7 +487,7 @@ tunegrid &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span
   <span class="dt">tuneGrid =</span> tunegrid
   )</code></pre></div>
 <p>Let’s study the output:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_rf_caret</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_rf</code></pre></div>
 <pre><code>## Random Forest 
 ## 
 ## 1460 samples
@@ -517,7 +517,7 @@ tunegrid &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span
 <p>Make Predictions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test &lt;-<span class="st"> </span>test <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(
-    <span class="dt">logSalePrice_hat_rf_caret =</span> <span class="kw">predict</span>(model_rf_caret, test),
+    <span class="dt">logSalePrice_hat_rf_caret =</span> <span class="kw">predict</span>(model_rf, test),
     <span class="dt">SalePrice_hat_rf_caret =</span> <span class="kw">exp</span>(logSalePrice_hat_rf_caret) <span class="op">-</span><span class="dv">1</span>
   )</code></pre></div>
 <p>Create a Kaggle submission.</p>

@@ -211,7 +211,7 @@ tunegrid <- expand.grid(.mtry = mtry)
 Note that this code chunk takes a few minutes to run. So we set this code chucks `cache = TRUE` to save the result when knitting the .Rmd file, so that future knits don't re-run this code block to save time. 
 
 ```{r, cache = TRUE}
-model_rf_caret <- caret::train(
+model_rf <- caret::train(
   # Model formula
   form = model_formula,
   # Training data
@@ -231,7 +231,7 @@ model_rf_caret <- caret::train(
 Let's study the output:
 
 ```{r}
-model_rf_caret
+model_rf
 ```
 
 We see that using `mtry = 34` yielded the lowest estimate of `RMSE` model error on new independent test data. This is the optimal value.
@@ -249,7 +249,7 @@ Make Predictions.
 ```{r}
 test <- test %>% 
   mutate(
-    logSalePrice_hat_rf_caret = predict(model_rf_caret, test),
+    logSalePrice_hat_rf_caret = predict(model_rf, test),
     SalePrice_hat_rf_caret = exp(logSalePrice_hat_rf_caret) -1
   )
 ```
